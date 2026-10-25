@@ -1,0 +1,226 @@
+---
+import { Image } from 'astro:assets'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { experiences } from '../../data/experiences'
+import '../../styles/experiences.css'
+
+const catalogExperiences = experiences.filter(({ slug }) => slug !== 'customize-your-own-experience')
+const filters = [
+    { label: 'All Experiences', value: 'all', icon: 'grid' },
+    { label: 'City Highlights', value: 'city', icon: 'city' },
+    { label: 'Nature & Beaches', value: 'nature', icon: 'nature' },
+    { label: 'Culture & History', value: 'culture', icon: 'culture' },
+    { label: 'Food & Lifestyle', value: 'food', icon: 'food' },
+    { label: 'Sunset & Nightlife', value: 'nightlife', icon: 'sunset' },
+    { label: 'Multi-Day', value: 'multiday', icon: 'calendar' },
+]
+---
+
+<BaseLayout
+    title="Private Tour Experiences in Rio de Janeiro | Rio On The Map"
+    description="Explore private Rio de Janeiro tours shaped around iconic views, nature, culture and the way you want to experience the city."
+    canonicalPath="/experiences/"
+>
+    <main id="main-content" class="experiences-page">
+        <section class="experiences-showcase" aria-labelledby="experiences-title" data-experience-catalog>
+            <div class="container experiences-showcase__content">
+                <header class="experiences-heading">
+                    <div class="experiences-heading__intro">
+                        <h2>
+                            A city of iconic views
+                            <br />
+                            and unforgettable
+                            <br />
+                            <em>experiences.</em>
+                        </h2>
+                        <p>
+                            From world-famous landmarks to hidden gems, Rio de Janeiro blends stunning nature, vibrant
+                            culture and a unique energy. Our private tours are designed to show you the real Rio — at your
+                            pace, with local insight and unforgettable moments.
+                        </p>
+                    </div>
+
+                    <h1 id="experiences-title">
+                        <span>Experiences</span>
+                        <em>made for you.</em>
+                    </h1>
+                </header>
+
+                <div class="experience-toolbar">
+                    <div class="experience-filter-list" role="group" aria-label="Filter experiences">
+                        {
+                            filters.map((filter, index) => (
+                                <button
+                                    type="button"
+                                    class="experience-filter"
+                                    data-filter={filter.value}
+                                    aria-pressed={index === 0 ? 'true' : 'false'}
+                                >
+                                    <span class="experience-filter__icon" aria-hidden="true">
+                                        {filter.icon === 'grid' && (
+                                            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>
+                                        )}
+                                        {filter.icon === 'city' && (
+                                            <svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V9l5-3v14M11 20V4l7 4v12M8 12h1M8 15h1M14 10h1M14 13h1M17 11h1M17 15h1"></path></svg>
+                                        )}
+                                        {filter.icon === 'nature' && (
+                                            <svg viewBox="0 0 24 24"><path d="M12 21V9M12 10c-2.5 0-5-1.5-6-4 3-.7 5.4.2 6 4ZM12 13c2.7 0 5.2-1.6 6.2-4.2-3.2-.7-5.6.3-6.2 4.2ZM8 21h8"></path></svg>
+                                        )}
+                                        {filter.icon === 'culture' && (
+                                            <svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5M5 10h14M6 10v8M10 10v8M14 10v8M18 10v8M4 18h16M3 21h18"></path></svg>
+                                        )}
+                                        {filter.icon === 'food' && (
+                                            <svg viewBox="0 0 24 24"><path d="M7 3v7M4.5 3v4.5A2.5 2.5 0 0 0 7 10v11M9.5 3v4.5A2.5 2.5 0 0 1 7 10M16 21v-8M16 13c-2.2 0-4-2-4-5s1.8-5 4-5 4 2 4 5-1.8 5-4 5Z"></path></svg>
+                                        )}
+                                        {filter.icon === 'sunset' && (
+                                            <svg viewBox="0 0 24 24"><path d="M4 15h16M6 15a6 6 0 0 1 12 0M12 3v3M4.9 7.9 7 10M19.1 7.9 17 10M3 20h18"></path></svg>
+                                        )}
+                                        {filter.icon === 'calendar' && (
+                                            <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3.5 10h17M8 14h3M13 14h3M8 17h3"></path></svg>
+                                        )}
+                                    </span>
+                                    <span>{filter.label}</span>
+                                </button>
+                            ))
+                        }
+                    </div>
+
+                    <label class="experience-sort">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 7h16M7 12h10M10 17h4"></path>
+                        </svg>
+                        <span>Sort by</span>
+                        <select data-experience-sort aria-label="Sort experiences">
+                            <option value="featured">Featured</option>
+                            <option value="name">Name A–Z</option>
+                        </select>
+                    </label>
+                </div>
+
+                <h2 class="visually-hidden">Private tour experiences</h2>
+                <p class="visually-hidden" aria-live="polite" data-experience-results>
+                    {catalogExperiences.length} experiences
+                </p>
+
+                <ul class="experience-gallery" data-experience-list>
+                    {
+                        catalogExperiences.map((experience, index) => (
+                            <li
+                                class="tour-card"
+                                data-experience-card
+                                data-categories={experience.categories.join(' ')}
+                                data-name={experience.name}
+                                data-order={index}
+                            >
+                                <article>
+                                    <div class="tour-card__visual">
+                                        <Image
+                                            src={experience.image}
+                                            alt={experience.imageAlt}
+                                            class="tour-card__image"
+                                            widths={[320, 480, 640]}
+                                            sizes="(max-width: 560px) 100vw, (max-width: 1040px) 50vw, 33vw"
+                                            loading={index < 3 ? 'eager' : 'lazy'}
+                                            quality={80}
+                                        />
+                                        <div class="tour-card__shade" aria-hidden="true"></div>
+
+                                        <button
+                                            class="tour-card__favorite"
+                                            type="button"
+                                            aria-label={`Save ${experience.name}`}
+                                            aria-pressed="false"
+                                            data-favorite
+                                            data-experience-name={experience.name}
+                                        >
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"></path>
+                                            </svg>
+                                        </button>
+
+                                        <div class="tour-card__content">
+                                            <span class="tour-card__category">{experience.category}</span>
+                                            <h2><a href={`/experiences/${experience.slug}/`}>{experience.name}</a></h2>
+                                            <p class="tour-card__description">{experience.description}</p>
+
+                                            <dl class="tour-card__details">
+                                                <div>
+                                                    <dt class="visually-hidden">Time</dt>
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3 2"></path></svg>
+                                                    <dd>{experience.duration}</dd>
+                                                </div>
+                                                <div>
+                                                    <dt class="visually-hidden">People</dt>
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 19c.6-3.3 2.8-5 6.5-5s5.9 1.7 6.5 5"></path></svg>
+                                                    <dd>{experience.groupSize}</dd>
+                                                </div>
+                                                <div>
+                                                    <dt class="visually-hidden">Languages</dt>
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.3 5.1 3.3 8.5S14.2 18.2 12 20.5M12 3.5C9.8 5.8 8.7 8.6 8.7 12s1.1 6.2 3.3 8.5"></path></svg>
+                                                    <dd>{experience.languages}</dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+
+                                    <div class="tour-card__footer">
+                                        <p><span>Price</span> <strong>{experience.price}</strong></p>
+                                        <a href={`/experiences/${experience.slug}/`}>View experience</a>
+                                    </div>
+                                </article>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </section>
+    </main>
+</BaseLayout>
+
+<script>
+    const catalog = document.querySelector('[data-experience-catalog]')
+
+    if (catalog) {
+        const buttons = [...catalog.querySelectorAll<HTMLButtonElement>('[data-filter]')]
+        const list = catalog.querySelector('[data-experience-list]')
+        const cards = [...catalog.querySelectorAll<HTMLElement>('[data-experience-card]')]
+        const results = catalog.querySelector('[data-experience-results]')
+        const sort = catalog.querySelector<HTMLSelectElement>('[data-experience-sort]')
+        const favorites = [...catalog.querySelectorAll<HTMLButtonElement>('[data-favorite]')]
+
+        const setResultCount = () => {
+            const visibleCount = cards.filter((card) => !card.hidden).length
+            if (results) results.textContent = `${visibleCount} ${visibleCount === 1 ? 'experience' : 'experiences'}`
+        }
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const selectedFilter = button.dataset.filter ?? 'all'
+                buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)))
+                cards.forEach((card) => {
+                    const categories = card.dataset.categories?.split(' ') ?? []
+                    card.hidden = selectedFilter !== 'all' && !categories.includes(selectedFilter)
+                })
+                setResultCount()
+            })
+        })
+
+        sort?.addEventListener('change', () => {
+            if (!list) return
+            const sortedCards = [...cards].sort((first, second) => {
+                if (sort.value === 'name') return (first.dataset.name ?? '').localeCompare(second.dataset.name ?? '')
+                return Number(first.dataset.order) - Number(second.dataset.order)
+            })
+            sortedCards.forEach((card) => list.append(card))
+        })
+
+        favorites.forEach((favorite) => {
+            favorite.addEventListener('click', () => {
+                const isSaved = favorite.getAttribute('aria-pressed') === 'true'
+                const experienceName = favorite.dataset.experienceName ?? 'experience'
+                favorite.setAttribute('aria-pressed', String(!isSaved))
+                favorite.setAttribute('aria-label', isSaved ? `Save ${experienceName}` : `Remove saved ${experienceName}`)
+            })
+        })
+    }
+</script>

@@ -26,6 +26,7 @@
 }
 
 html {
+  font-size: 17px;
   scroll-behavior: smooth;
 }
 
@@ -38,6 +39,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body,
+main {
+  min-height: 100%;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -47,6 +53,29 @@ a {
   color: inherit;
 }
 
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 14px;
+  background: #fff;
+  color: #102f40;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 button,
 input,
 textarea {
@@ -54,6 +83,12 @@ textarea {
 }
 
 .container {
-  width: min(100% - 40px, var(--container-width));
+  width: min(100% - 48px, 1240px);
   margin-inline: auto;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: min(100% - 32px, 1240px);
+  }
 }

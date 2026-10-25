@@ -1,4 +1,6 @@
 ---
+import { Picture } from 'astro:assets'
+import heroImage from '../assets/rio-sunset-hero.png'
 import '../styles/hero.css'
 ---
 
@@ -6,39 +8,49 @@ import '../styles/hero.css'
     class="hero"
     aria-labelledby="hero-title"
 >
-    <div
-        class="hero__background"
+    <Picture
+        src={heroImage}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        layout="full-width"
+        widths={[640, 960, 1280, 1600, 1855]}
+        sizes="100vw"
+        alt=""
+        class="hero__image"
+        pictureAttributes={{ class: 'hero__media', 'aria-hidden': 'true' }}
+        loading="eager"
+        fetchpriority="high"
+        quality={82}
         aria-hidden="true"
-    >
-    </div>
+    />
 
     <div class="container hero__content">
-        <span class="hero__eyebrow"> PRIVATE TOURS · RIO DE JANEIRO </span>
-
         <h1 id="hero-title">
-            Discover Rio
+            Rio,
             <br />
-            Beyond the Ordinary.
+            Beyond
+            <br />
+            the <em>Expected.</em>
         </h1>
 
         <p class="hero__description">
-            Explore the soul of Rio de Janeiro through authentic experiences, iconic landscapes, and the perspective of
-            a local guide.
+            Discover Rio de Janeiro through thoughtfully curated private experiences, guided by local insight and shaped
+            around you.
         </p>
 
         <div class="hero__actions">
             <a
-                href="/experiences"
+                href="/experiences/"
                 class="hero__button hero__button--primary"
             >
-                Explore Experiences
+                <span>Discover Experiences</span>
             </a>
 
             <a
-                href="/contact"
+                href="/contact/"
                 class="hero__button hero__button--secondary"
             >
-                Plan Your Private Tour
+                <span>Plan Your Private Tour</span>
             </a>
         </div>
     </div>

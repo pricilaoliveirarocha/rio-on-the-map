@@ -1,127 +1,210 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #071725;
+  color: #fff;
+  isolation: isolate;
+}
+
+.hero__media,
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__media {
+  z-index: -3;
+}
+
+.hero__image {
+  object-fit: cover;
+  object-position: 58% center;
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero::before {
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgb(2 12 21 / 82%) 0%, rgb(3 14 23 / 58%) 29%, rgb(3 14 23 / 10%) 67%),
+    linear-gradient(0deg, rgb(2 10 17 / 60%) 0%, transparent 43%);
+}
+
+.hero::after {
+  z-index: -1;
+  background: linear-gradient(180deg, rgb(2 9 15 / 32%) 0%, transparent 24%);
+}
+
+.hero__content {
+  padding-top: 180px;
+  padding-bottom: clamp(58px, 8vh, 104px);
+}
+
+.hero h1 {
+  max-width: 700px;
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(4.75rem, 7.9vw, 7.4rem);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.hero h1 em {
+  color: #e4a64e;
+  font-weight: 400;
+}
+
+.hero__description {
+  max-width: 510px;
+  margin: 28px 0 0;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.55;
+  color: rgb(255 255 255 / 88%);
+  text-wrap: pretty;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  width: fit-content;
+  margin-top: 32px;
+}
+
+.hero__button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  min-height: 50px;
+  padding: 5px 18px 11px;
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.hero__button::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  left: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, #c99549, rgb(238 193 113 / 38%));
+  transform-origin: left;
+  transition: transform 220ms ease, background-color 180ms ease;
+}
+
+.hero__button--secondary {
+  margin-left: 1px;
+}
+
+.hero__button--secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 1px;
+  background: rgb(255 255 255 / 38%);
+}
+
+@media (hover: hover) {
+  .hero__button:hover {
+    color: #f4c475;
+  }
+
+  .hero__button:hover::after {
+    background: #efba68;
+    transform: scaleX(0.92);
+  }
+
+}
+
+@media (max-width: 760px) {
   .hero {
-      position: relative;
-      display: flex;
-      align-items: center;
-      min-height: min(850px, 90svh);
-      padding-block: 120px;
-      overflow: hidden;
-      background: #102f40;
-      color: #fff;
-      isolation: isolate;
+    min-height: 780px;
   }
 
-  .hero__background {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      background-image: url('/images/rio-hero.webp');
-      background-size: cover;
-      background-position: center;
+  .hero__image {
+    object-position: 64% center;
   }
 
-  .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(90deg,
-              rgb(8 24 32 / 75%) 0%,
-              rgb(8 24 32 / 35%) 60%,
-              rgb(8 24 32 / 10%) 100%);
+  .hero::before {
+    background:
+      linear-gradient(90deg, rgb(2 12 21 / 76%) 0%, rgb(3 14 23 / 30%) 100%),
+      linear-gradient(0deg, rgb(2 10 17 / 76%) 0%, transparent 70%);
   }
 
   .hero__content {
-      position: relative;
-      width: 100%;
-  }
-
-  .hero__eyebrow {
-      display: block;
-      margin-bottom: 28px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
+    padding-top: 132px;
+    padding-bottom: 42px;
   }
 
   .hero h1 {
-      max-width: 850px;
-      margin: 0;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(3.5rem, 7vw, 7rem);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: -0.045em;
+    font-size: clamp(4rem, 19vw, 6rem);
   }
 
   .hero__description {
-      max-width: 520px;
-      margin: 32px 0 0;
-      font-size: clamp(1rem, 1.4vw, 1.15rem);
-      line-height: 1.8;
-      color: rgb(255 255 255 / 85%);
+    max-width: 420px;
+    margin-top: 24px;
   }
 
   .hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 40px;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
   }
 
   .hero__button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      padding: 14px 26px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      transition: background 0.2s ease, color 0.2s ease;
+    width: 100%;
+    min-width: 0;
+    padding-inline: 4px;
   }
 
-  .hero__button--primary {
-      background: #fff;
-      color: #102f40;
-  }
-
-  .hero__button--primary:hover {
-      background: #e8e5dd;
+  .hero__button::after {
+    right: 4px;
+    left: 4px;
   }
 
   .hero__button--secondary {
-      border: 1px solid rgb(255 255 255 / 65%);
-      color: #fff;
+    margin-left: 0;
   }
 
-  .hero__button--secondary:hover {
-      background: rgb(255 255 255 / 12%);
+  .hero__button--secondary::before {
+    display: none;
   }
+}
 
-  @media (max-width: 768px) {
-      .hero {
-          min-height: 720px;
-          padding-block: 100px;
-      }
-
-      .hero__background {
-          background-position: 60% center;
-      }
-
-      .hero::after {
-          background: rgb(8 24 32 / 55%);
-      }
-
-      .hero__actions {
-          align-items: flex-start;
-          flex-direction: column;
-      }
+@media (max-width: 390px) {
+  .hero h1 {
+    font-size: 3.7rem;
   }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-      .hero__button {
-          transition: none;
-      }
+@media (prefers-reduced-motion: reduce) {
+  .hero__button,
+  .hero__button::after {
+    transition: none;
   }
+}

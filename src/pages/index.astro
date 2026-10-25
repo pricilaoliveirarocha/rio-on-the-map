@@ -1,13 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/Hero.astro'
+import HomeStories from '../components/HomeStories.astro'
+import HomeEnquiry from '../components/HomeEnquiry.astro'
 ---
 
 <BaseLayout
-    title="Rio On The Map - The Best tours in Rio de Janeiro"
-    description="Discover Rio de Janeiro through authentic private tours, personalized experiences and local expertise. Explore Rio with Rio On The Map."
+    title="Private Tours in Rio de Janeiro | Rio On The Map"
+    description="Discover Rio de Janeiro through thoughtfully curated private tours, local insight and experiences shaped around you."
+    canonicalPath="/"
 >
-    <main>
+    <main id="main-content">
         <Hero />
+        <HomeStories />
+        <HomeEnquiry />
     </main>
 </BaseLayout>
