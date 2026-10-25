@@ -67,6 +67,17 @@
   font-weight: 400;
 }
 
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.05em;
+  margin-bottom: -0.05em;
+}
+
+.hero__line > span {
+  display: block;
+}
+
 .hero__description {
   max-width: 510px;
   margin: 28px 0 0;

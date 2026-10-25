@@ -1,11 +1,33 @@
 ---
+import { Picture } from 'astro:assets'
+import enquiryImage from '../assets/rio-sunset-hero.png'
 import '../styles/home-enquiry.css'
 ---
 
 <section class="home-enquiry" id="plan-your-tour" aria-labelledby="enquiry-title">
-    <div class="container home-enquiry__layout">
+    <div class="home-enquiry__banner">
+        <Picture
+            src={enquiryImage}
+            formats={['avif', 'webp']}
+            fallbackFormat="jpg"
+            widths={[640, 960, 1280, 1600]}
+            sizes="100vw"
+            alt=""
+            loading="lazy"
+            quality={76}
+            aria-hidden="true"
+        />
+        <div class="container home-enquiry__banner-content">
+            <div>
+                <h2>Start your<br />Rio experience.</h2>
+                <p>Tell us what you’re looking for and we’ll create a personalized experience shaped around you.</p>
+            </div>
+            <a href="#enquiry-form">Plan your private tour</a>
+        </div>
+    </div>
+
+    <div class="container home-enquiry__layout" id="enquiry-form">
         <div class="home-enquiry__intro">
-            <p class="home-enquiry__kicker">Plan your private experience</p>
             <h2 id="enquiry-title">Tell us what your<br />perfect day in Rio<br /><em>looks like.</em></h2>
             <p>
                 Share a few details about your visit. Your message will go directly to Rio On The Map so we can shape a
