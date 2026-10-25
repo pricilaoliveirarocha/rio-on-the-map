@@ -4,7 +4,7 @@
   align-items: flex-end;
   min-height: 100svh;
   overflow: hidden;
-  background: #071725;
+  background: #0b0b0b;
   color: #fff;
   isolation: isolate;
 }
@@ -37,8 +37,8 @@
 .hero::before {
   z-index: -2;
   background:
-    linear-gradient(90deg, rgb(2 12 21 / 82%) 0%, rgb(3 14 23 / 58%) 29%, rgb(3 14 23 / 10%) 67%),
-    linear-gradient(0deg, rgb(2 10 17 / 60%) 0%, transparent 43%);
+    linear-gradient(90deg, rgb(5 5 5 / 90%) 0%, rgb(7 7 7 / 58%) 34%, rgb(7 7 7 / 10%) 70%),
+    linear-gradient(0deg, rgb(5 5 5 / 74%) 0%, transparent 48%);
 }
 
 .hero::after {
@@ -54,17 +54,17 @@
 .hero h1 {
   max-width: 700px;
   margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(4.75rem, 7.9vw, 7.4rem);
-  font-weight: 400;
-  line-height: 0.82;
-  letter-spacing: -0.055em;
+  font-family: var(--font-display);
+  font-size: clamp(4.75rem, 9vw, 9.2rem);
+  font-weight: 620;
+  line-height: 0.78;
+  letter-spacing: -0.072em;
   text-wrap: balance;
 }
 
 .hero h1 em {
-  color: #e4a64e;
-  font-weight: 400;
+  color: var(--color-accent);
+  font-weight: 500;
 }
 
 .hero__line {
@@ -120,7 +120,7 @@
   bottom: 0;
   left: 18px;
   height: 1px;
-  background: linear-gradient(90deg, #c99549, rgb(238 193 113 / 38%));
+  background: var(--color-accent);
   transform-origin: left;
   transition: transform 220ms ease, background-color 180ms ease;
 }
@@ -141,11 +141,11 @@
 
 @media (hover: hover) {
   .hero__button:hover {
-    color: #f4c475;
+    color: var(--color-accent);
   }
 
   .hero__button:hover::after {
-    background: #efba68;
+    background: var(--color-accent);
     transform: scaleX(0.92);
   }
 

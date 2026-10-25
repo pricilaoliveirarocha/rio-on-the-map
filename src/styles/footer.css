@@ -1,9 +1,8 @@
 .site-footer {
-  padding: 30px 0 22px;
+  padding: 46px 0 28px;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 25%, rgb(19 49 62 / 24%), transparent 42%),
-    #020f18;
+  border-top: 1px solid var(--color-line);
+  background: #0b0b0b;
   color: rgb(255 255 255 / 70%);
 }
 
@@ -11,7 +10,7 @@
   display: grid;
   grid-template-columns: minmax(300px, 1.1fr) minmax(280px, 1.2fr) minmax(260px, 0.9fr);
   align-items: center;
-  min-height: 76px;
+  min-height: 92px;
 }
 
 .footer-identity,
@@ -40,15 +39,15 @@
   width: 36px;
   height: 36px;
   fill: none;
-  stroke: #e2a64e;
+  stroke: var(--color-accent);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1.25;
 }
 
 .footer-brand span {
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: 650;
   letter-spacing: 0.28em;
   text-transform: uppercase;
 }
@@ -86,7 +85,7 @@
   height: 34px;
   align-items: center;
   justify-content: center;
-  color: #e4aa55;
+  color: var(--color-accent);
   transition: color 180ms ease, transform 180ms ease;
 }
 
@@ -135,7 +134,7 @@
 
 .footer-location nav a {
   color: rgb(255 255 255 / 72%);
-  font-size: 0.55rem;
+  font-size: 0.58rem;
   letter-spacing: 0.1em;
   text-decoration: none;
   text-transform: uppercase;
@@ -169,11 +168,13 @@
 }
 
 .footer-copyright {
-  margin: 14px 0 0;
+  padding-top: 22px;
+  margin: 24px 0 0;
+  border-top: 1px solid var(--color-line);
   color: rgb(255 255 255 / 58%);
   font-size: 0.58rem;
   letter-spacing: 0.3em;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
 }
 
@@ -184,7 +185,7 @@
   }
 
   .footer-location nav a:hover {
-    color: #e4aa55;
+    color: var(--color-accent);
   }
 }
 

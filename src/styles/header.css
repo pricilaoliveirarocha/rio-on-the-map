@@ -1,47 +1,50 @@
 .site-header {
-  position: absolute;
+  position: fixed;
   inset: 34px 0 auto;
-  z-index: 10;
-  color: #fff;
+  z-index: 20;
+  color: var(--color-text);
 }
 
 .header-content {
   display: flex;
+  min-height: 82px;
   align-items: center;
   justify-content: space-between;
-  min-height: 96px;
   gap: 48px;
+  border-bottom: 1px solid var(--color-line);
+  background: rgb(11 11 11 / 68%);
+  backdrop-filter: blur(14px);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex: none;
   text-decoration: none;
 }
 
 .brand__mark {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   fill: none;
-  stroke: #e7aa4c;
+  stroke: var(--color-accent);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.2;
+  stroke-width: 1.15;
 }
 
 .brand__name {
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
 .navigation {
   display: flex;
   align-items: center;
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(25px, 3vw, 50px);
   padding: 0;
   margin: 0;
   list-style: none;
@@ -49,32 +52,41 @@
 
 .navigation a {
   position: relative;
-  display: block;
-  padding-block: 14px;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.07em;
+  display: grid;
+  grid-template-columns: 18px auto;
+  gap: 8px;
+  padding-block: 17px;
+  color: rgb(245 245 245 / 68%);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
   text-decoration: none;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 78%);
   transition: color 180ms ease;
+}
+
+.navigation a > span {
+  color: var(--color-accent);
+  font-size: 0.48rem;
+  letter-spacing: 0;
 }
 
 .navigation a::after {
   content: '';
   position: absolute;
   right: 0;
-  bottom: 5px;
-  left: 0;
+  bottom: 7px;
+  left: 26px;
   height: 1px;
-  background: #dfa54d;
+  background: var(--color-accent);
   transform: scaleX(0);
+  transform-origin: left;
   transition: transform 180ms ease;
 }
 
 .navigation a:hover,
 .navigation a[aria-current='page'] {
-  color: #f1b75b;
+  color: var(--color-text);
 }
 
 .navigation a:hover::after,
@@ -88,11 +100,12 @@
 }
 
 .mobile-navigation summary {
-  padding: 10px 0;
+  padding: 14px 0;
+  color: var(--color-text);
   cursor: pointer;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   list-style: none;
   text-transform: uppercase;
 }
@@ -103,36 +116,45 @@
 
 .mobile-navigation ul {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 12px);
   right: 0;
-  width: 210px;
-  padding: 12px;
+  width: min(82vw, 300px);
+  padding: 14px 20px;
   margin: 0;
-  border: 1px solid rgb(228 166 78 / 35%);
-  border-radius: 10px;
-  background: rgb(4 16 26 / 94%);
-  box-shadow: 0 16px 40px rgb(0 0 0 / 28%);
+  border: 1px solid var(--color-line);
+  background: #121212;
+  box-shadow: 0 24px 60px rgb(0 0 0 / 38%);
   list-style: none;
-  backdrop-filter: blur(14px);
+}
+
+.mobile-navigation li + li {
+  border-top: 1px solid var(--color-line);
 }
 
 .mobile-navigation a {
-  display: block;
-  padding: 12px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 8px;
+  padding: 16px 0;
+  color: rgb(245 245 245 / 76%);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   text-decoration: none;
   text-transform: uppercase;
 }
 
-.mobile-navigation a[aria-current='page'] {
-  color: #efb65b;
+.mobile-navigation a > span {
+  color: var(--color-accent);
+  font-size: 0.55rem;
 }
 
-@media (max-width: 820px) {
+.mobile-navigation a[aria-current='page'] {
+  color: var(--color-text);
+}
+
+@media (max-width: 860px) {
   .header-content {
-    min-height: 82px;
+    min-height: 72px;
   }
 
   .desktop-navigation {
@@ -146,17 +168,17 @@
 
 @media (max-width: 440px) {
   .brand {
-    gap: 11px;
+    gap: 10px;
   }
 
   .brand__mark {
-    width: 32px;
-    height: 32px;
+    width: 29px;
+    height: 29px;
   }
 
   .brand__name {
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
+    font-size: 0.62rem;
+    letter-spacing: 0.17em;
   }
 }
 
