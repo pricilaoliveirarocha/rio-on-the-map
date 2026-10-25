@@ -1,0 +1,39 @@
+---
+const navigation = [
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/about-us' },
+    { label: 'Experiences', href: '/experiences' },
+    { label: 'Contact Us', href: '/contact-us' },
+]
+
+const pathname = Astro.url.pathname
+---
+
+<header class="site-header">
+    <div class="container header-content">
+        <a
+            href="/"
+            class="brand"
+            aria-label="Rio On The Map - Home"
+        >
+            RIO <span>ON THE</span> MAP
+        </a>
+
+        <nav aria-label="main navigation">
+            <ul class="navigation">
+                {
+                    navigation.map(({ label, href }) => (
+                        <li>
+                            <a
+                                href={href}
+                                aria-current={pathname === href ? 'page' : undefined}
+                            >
+                                {label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+    </div>
+</header>
