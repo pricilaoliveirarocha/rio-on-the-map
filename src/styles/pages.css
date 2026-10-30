@@ -1,17 +1,17 @@
 .page-main {
-  background: #faf9f6;
+  background: var(--color-background);
 }
 
 .page-intro {
-  padding: 170px 0 82px;
-  background: #0a2433;
+  padding: calc(var(--header-offset) + 110px) 0 82px;
+  background: var(--color-background);
   color: #fff;
 }
 
 .page-kicker {
   display: block;
   margin-bottom: 18px;
-  color: #e4a64e;
+  color: var(--color-accent);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -21,9 +21,9 @@
 .page-intro h1 {
   max-width: 900px;
   margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   font-size: clamp(3.2rem, 7vw, 6.8rem);
-  font-weight: 400;
+  font-weight: 560;
   line-height: 0.95;
   letter-spacing: -0.045em;
 }
@@ -31,7 +31,7 @@
 .page-intro p {
   max-width: 680px;
   margin: 26px 0 0;
-  color: rgb(255 255 255 / 78%);
+  color: var(--color-text-soft);
   font-size: 1.08rem;
   line-height: 1.7;
 }
@@ -43,16 +43,16 @@
 .content-section h2 {
   max-width: 720px;
   margin: 0 0 22px;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 400;
+  font-weight: 560;
   line-height: 1.08;
 }
 
 .content-section p {
   max-width: 720px;
   margin: 0 0 18px;
-  color: #43545c;
+  color: var(--color-text-muted);
   font-size: 1.03rem;
   line-height: 1.75;
 }
@@ -76,8 +76,8 @@
   display: flex;
   min-height: 230px;
   padding: 28px;
-  border: 1px solid #d9dedf;
-  background: #fff;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
 }
 
 .experience-card a {
@@ -85,7 +85,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  color: #102f40;
+  color: var(--color-text);
   text-decoration: none;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .experience-card span {
-  color: #8d6427;
+  color: var(--color-accent);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -105,8 +105,8 @@
 .status-note {
   max-width: 760px;
   padding: 24px;
-  border-left: 3px solid #e4a64e;
-  background: #fff;
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-surface);
 }
 
 .detail-list {
@@ -115,17 +115,17 @@
   gap: 1px;
   max-width: 760px;
   margin: 38px 0;
-  background: #d9dedf;
+  background: var(--color-line);
 }
 
 .detail-list div {
   padding: 22px;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .detail-list dt {
   margin-bottom: 8px;
-  color: #68777d;
+  color: var(--color-text-muted);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -134,12 +134,12 @@
 
 .detail-list dd {
   margin: 0;
-  color: #102f40;
+  color: var(--color-text);
 }
 
 .text-link,
 .primary-link {
-  color: #8d6427;
+  color: var(--color-accent);
   font-weight: 700;
   text-underline-offset: 4px;
 }
@@ -150,8 +150,8 @@
   align-items: center;
   padding: 12px 22px;
   border-radius: 999px;
-  background: #102f40;
-  color: #fff;
+  background: var(--color-text);
+  color: var(--color-background);
   letter-spacing: 0.06em;
   text-decoration: none;
 }

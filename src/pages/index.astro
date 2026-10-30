@@ -1,24 +1,138 @@
 ---
+import { Picture } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/Hero.astro'
-import FeaturedExperiences from '../components/FeaturedExperiences.astro'
-import HomeStories from '../components/HomeStories.astro'
-import HomeEnquiry from '../components/HomeEnquiry.astro'
+import ArrowIcon from '../components/ArrowIcon.astro'
+import ExperienceCard from '../components/ExperienceCard.astro'
+import Reviews from '../components/Reviews.astro'
+import CtaBand from '../components/CtaBand.astro'
+import heroImage from '../assets/rio-sunset-hero.png'
+import { experiences } from '../data/experiences'
+import { principles, ratings } from '../data/site'
+import '../styles/home.css'
+
+const featuredSlugs = ['classic-rio-day-tour', 'rio-tijuca-explore', 'petropolis-day-tour']
+const featuredExperiences = featuredSlugs
+    .map((slug) => experiences.find((experience) => experience.slug === slug))
+    .filter((experience) => experience !== undefined)
 ---
 
 <BaseLayout
     title="Private Tours in Rio de Janeiro | Rio On The Map"
-    description="Discover Rio de Janeiro through thoughtfully curated private tours, local insight and experiences shaped around you."
+    description="Private tours in Rio de Janeiro shaped around you: iconic landmarks, nature, culture and day trips with local guides. Rated 5.0 on Google."
     canonicalPath="/"
 >
     <main id="main-content">
-        <Hero />
-        <FeaturedExperiences />
-        <HomeStories />
-        <HomeEnquiry />
+        <section class="home-hero" aria-labelledby="hero-title">
+            <div class="home-hero__media" data-intro-media>
+                <Picture
+                    src={heroImage}
+                    formats={['avif', 'webp']}
+                    fallbackFormat="jpg"
+                    widths={[640, 960, 1280, 1600, 1916]}
+                    sizes="100vw"
+                    alt=""
+                    loading="eager"
+                    fetchpriority="high"
+                    quality={82}
+                />
+            </div>
+
+            <div class="container home-hero__content">
+                <p class="eyebrow home-hero__eyebrow" data-intro>Private tours in Rio de Janeiro</p>
+
+                <h1 id="hero-title" class="display display--xl" data-lines data-intro-lines>
+                    <span class="line"><span>Rio,</span></span>
+                    <span class="line"><span>beyond the</span></span>
+                    <span class="line"><span><em>expected.</em></span></span>
+                </h1>
+
+                <div class="home-hero__footer">
+                    <div>
+                        <p class="lede" data-intro>
+                            Thoughtfully curated private experiences, guided by local insight and shaped around you.
+                        </p>
+                        <div class="button-row" data-intro>
+                            <a class="button" href="/experiences/">
+                                <span>Discover experiences</span>
+                                <ArrowIcon />
+                            </a>
+                            <a class="button button--ghost" href="/contact/">
+                                <span>Plan a private tour</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <ul class="home-hero__ratings" data-intro aria-label="Public review scores">
+                        {
+                            ratings.map((rating) => (
+                                <li>
+                                    <strong>{rating.score}</strong>
+                                    <span>{rating.platform}</span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <span class="home-hero__scroll" aria-hidden="true"></span>
+        </section>
+
+        <section class="section home-intro" aria-labelledby="intro-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>Our approach</p>
+                <h2 id="intro-title" class="statement" data-reveal>
+                    We design private days in Rio around the way you want to see it —{' '}
+                    <span>the landmarks, the quieter corners and the pace in between.</span>
+                </h2>
+
+                <ol class="principles" data-stagger>
+                    {
+                        principles.map((principle, index) => (
+                            <li>
+                                <span class="principles__number">0{index + 1}</span>
+                                <h3>{principle.title}</h3>
+                                <p>{principle.text}</p>
+                            </li>
+                        ))
+                    }
+                </ol>
+            </div>
+        </section>
+
+        <section class="section section--surface home-experiences" aria-labelledby="featured-title">
+            <div class="container">
+                <header class="home-experiences__header">
+                    <div>
+                        <p class="eyebrow" data-reveal>Experiences with us</p>
+                        <h2 id="featured-title" class="display" data-lines>
+                            <span class="line"><span>Experiences</span></span>
+                            <span class="line"><span>made <em>for you.</em></span></span>
+                        </h2>
+                    </div>
+                    <div class="home-experiences__aside" data-reveal>
+                        <p class="lede">
+                            From iconic landmarks to hidden corners, every tour is private and adapted to your interests.
+                        </p>
+                        <a class="arrow-link" href="/experiences/">
+                            View all experiences
+                            <ArrowIcon />
+                        </a>
+                    </div>
+                </header>
+
+                <ul class="experience-grid home-experiences__grid" data-stagger>
+                    {
+                        featuredExperiences.map((experience) => (
+                            <li><ExperienceCard experience={experience} /></li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </section>
+
+        <Reviews titleId="home-reviews-title" />
+
+        <CtaBand />
     </main>
 </BaseLayout>
-
-<script>
-    import '../scripts/home-motion'
-</script>

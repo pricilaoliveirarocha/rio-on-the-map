@@ -1,42 +1,145 @@
 ---
+import { Picture } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import '../styles/pages.css'
+import ArrowIcon from '../components/ArrowIcon.astro'
+import Reviews from '../components/Reviews.astro'
+import CtaBand from '../components/CtaBand.astro'
+import aboutImage from '../assets/rio-sunset-hero.png'
+import { enquirySteps, principles } from '../data/site'
+import '../styles/about.css'
 ---
 
 <BaseLayout
-    title="About Rio On The Map | Private Tours in Rio"
-    description="Learn about Rio On The Map and our approach to thoughtful, locally guided private experiences in Rio de Janeiro."
+    title="About Rio On The Map | Local Private Tour Guides in Rio"
+    description="Meet Rio On The Map: locally guided private tours in Rio de Janeiro, designed around each traveler's interests, pace and comfort."
     canonicalPath="/about/"
+    breadcrumbs={[{ name: 'About', path: '/about/' }]}
 >
-    <main id="main-content" class="page-main">
-        <header class="page-intro">
+    <main id="main-content">
+        <header class="page-hero">
             <div class="container">
-                <span class="page-kicker">About Rio On The Map</span>
-                <h1>See Rio with local perspective.</h1>
-                <p>
-                    Rio On The Map creates private experiences for visitors who want a more personal way to understand
-                    the city.
-                </p>
+                <div class="page-hero__grid">
+                    <div>
+                        <p class="eyebrow" data-intro>About us</p>
+                        <h1 class="display display--xl" data-lines data-intro-lines>
+                            <span class="line"><span>See Rio with</span></span>
+                            <span class="line"><span>local <em>perspective.</em></span></span>
+                        </h1>
+                    </div>
+                    <div class="page-hero__aside" data-intro>
+                        <p class="lede">
+                            Rio On The Map creates private experiences for visitors who want a more personal way to
+                            understand the city.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="page-hero__media" data-clip>
+                    <Picture
+                        src={aboutImage}
+                        formats={['avif', 'webp']}
+                        fallbackFormat="jpg"
+                        widths={[640, 960, 1280, 1600, 1916]}
+                        sizes="(max-width: 1440px) 100vw, 1380px"
+                        alt="Rio de Janeiro and Guanabara Bay at sunset"
+                        loading="eager"
+                        quality={80}
+                    />
+                </div>
             </div>
         </header>
 
-        <section class="content-section">
-            <div class="container content-grid">
-                <div>
-                    <h2>Thoughtful, flexible and personal.</h2>
+        <section class="section about-story" aria-labelledby="story-title">
+            <div class="container about-story__grid">
+                <div class="about-story__heading">
+                    <p class="eyebrow" data-reveal>Our story</p>
+                    <h2 id="story-title" class="display display--md" data-lines>
+                        <span class="line"><span>Thoughtful,</span></span>
+                        <span class="line"><span>flexible and</span></span>
+                        <span class="line"><span><em>personal.</em></span></span>
+                    </h2>
                 </div>
-                <div>
-                    <p>
+
+                <div class="about-story__body" data-stagger>
+                    <p class="about-story__lead">
                         Our approach starts with the traveler: what you are curious about, how you prefer to move and what
                         kind of day you want to have in Rio de Janeiro.
                     </p>
                     <p>
-                        We are preparing fuller information about the team and guiding approach. Until those details are
-                        confirmed, contact us directly to discuss your visit and the experience you have in mind.
+                        Some guests want Rio’s famous landmarks and viewpoints. Others are drawn to its neighborhoods,
+                        forest landscapes or a day trip beyond the city. Every experience begins with a conversation, so
+                        the day reflects you rather than a fixed script.
                     </p>
-                    <a class="text-link" href="/contact/">Start a conversation</a>
+                    <p>
+                        Because each tour is private, the rhythm is yours: slow down where something catches your eye,
+                        skip what does not, and see the city with someone who knows it well.
+                    </p>
+                    <a class="arrow-link" href="/experiences/">
+                        Explore our experiences
+                        <ArrowIcon />
+                    </a>
                 </div>
             </div>
         </section>
+
+        <section class="section section--surface" aria-labelledby="principles-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>What guides us</p>
+                <h2 id="principles-title" class="display" data-lines>
+                    <span class="line"><span>Four things we</span></span>
+                    <span class="line"><span>never <em>compromise.</em></span></span>
+                </h2>
+
+                <ol class="principles" data-stagger>
+                    {
+                        principles.map((principle, index) => (
+                            <li>
+                                <span class="principles__number">0{index + 1}</span>
+                                <h3>{principle.title}</h3>
+                                <p>{principle.text}</p>
+                            </li>
+                        ))
+                    }
+                </ol>
+            </div>
+        </section>
+
+        <section class="section about-process" aria-labelledby="process-title">
+            <div class="container about-process__grid">
+                <div>
+                    <p class="eyebrow" data-reveal>How it works</p>
+                    <h2 id="process-title" class="display display--md" data-lines>
+                        <span class="line"><span>From first message</span></span>
+                        <span class="line"><span>to <em>your day in Rio.</em></span></span>
+                    </h2>
+                    <p class="lede" data-reveal>
+                        There is no instant checkout. We talk first, so every detail fits before anything is confirmed.
+                    </p>
+                </div>
+
+                <ol class="steps" data-stagger>
+                    {
+                        enquirySteps.map((step, index) => (
+                            <li>
+                                <span class="steps__number">0{index + 1}</span>
+                                <div>
+                                    <h3>{step.title}</h3>
+                                    <p>{step.text}</p>
+                                </div>
+                            </li>
+                        ))
+                    }
+                </ol>
+            </div>
+        </section>
+
+        <hr class="section-rule container" />
+
+        <Reviews titleId="about-reviews-title" />
+
+        <CtaBand
+            title="Let’s plan your day."
+            text="Share your dates and interests. We will reply personally with ideas for your private experience."
+        />
     </main>
 </BaseLayout>
