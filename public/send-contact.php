@@ -8,7 +8,7 @@ header('Referrer-Policy: strict-origin-when-cross-origin');
 
 function redirect_to_form(string $status): never
 {
-    header('Location: /?contact=' . rawurlencode($status) . '#plan-your-tour', true, 303);
+    header('Location: /contact/?contact=' . rawurlencode($status) . '#enquiry', true, 303);
     exit;
 }
 

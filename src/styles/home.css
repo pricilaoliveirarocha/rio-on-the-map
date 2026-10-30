@@ -1,0 +1,156 @@
+/* ---------- Hero ---------- */
+.home-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.home-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.home-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% center;
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(8 8 8 / 86%) 0%, rgb(8 8 8 / 48%) 42%, rgb(8 8 8 / 8%) 76%),
+    linear-gradient(0deg, rgb(8 8 8 / 90%) 0%, rgb(8 8 8 / 0%) 46%),
+    linear-gradient(180deg, rgb(8 8 8 / 50%) 0%, rgb(8 8 8 / 0%) 26%);
+}
+
+.home-hero__content {
+  padding-top: calc(var(--header-offset) + 72px);
+  padding-bottom: clamp(48px, 7vh, 88px);
+}
+
+.home-hero__eyebrow {
+  color: rgb(245 245 245 / 80%);
+}
+
+.home-hero__footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px;
+  align-items: end;
+  margin-top: clamp(28px, 4vh, 44px);
+}
+
+.home-hero__footer .lede {
+  margin-top: 0;
+  color: rgb(245 245 245 / 84%);
+}
+
+.home-hero__ratings {
+  display: flex;
+  gap: 36px;
+  padding: 0 0 6px;
+  margin: 0;
+  list-style: none;
+}
+
+.home-hero__ratings li {
+  display: grid;
+  gap: 6px;
+  padding-left: 18px;
+  border-left: 1px solid rgb(245 245 245 / 26%);
+}
+
+.home-hero__ratings strong {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.home-hero__ratings span {
+  color: rgb(245 245 245 / 70%);
+  font-size: 0.6rem;
+  font-weight: 650;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.home-hero__scroll {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  height: 64px;
+  overflow: hidden;
+  background: rgb(245 245 245 / 18%);
+}
+
+.home-hero__scroll::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  animation: scroll-cue 2.4s var(--ease-out) infinite;
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(100%); }
+}
+
+/* ---------- Intro ---------- */
+.home-intro .statement {
+  margin-top: 4px;
+}
+
+/* ---------- Featured experiences ---------- */
+.home-experiences__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: 48px;
+  align-items: end;
+  margin-bottom: clamp(56px, 6vw, 88px);
+}
+
+.home-experiences__aside .lede {
+  margin: 0 0 26px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .home-hero__footer,
+  .home-experiences__header {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .home-hero__scroll {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-hero__media img {
+    object-position: 64% center;
+  }
+
+  .home-hero__ratings {
+    gap: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__scroll::after {
+    animation: none;
+  }
+}

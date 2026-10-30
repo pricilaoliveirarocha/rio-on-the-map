@@ -1,0 +1,56 @@
+---
+import { ratings, reviews } from '../data/site'
+
+interface Props {
+    titleId?: string
+}
+
+const { titleId = 'reviews-title' } = Astro.props
+---
+
+<section class="section reviews" aria-labelledby={titleId}>
+    <div class="container">
+        <div class="reviews__header">
+            <div>
+                <p class="eyebrow" data-reveal>Guest stories</p>
+                <h2 id={titleId} class="display" data-lines>
+                    <span class="line"><span>Real stories from</span></span>
+                    <span class="line"><span>real <em>travelers.</em></span></span>
+                </h2>
+            </div>
+
+            <div class="ratings" data-stagger aria-label="Public review scores">
+                {
+                    ratings.map((rating) => (
+                        <a class="rating" href={rating.href} target="_blank" rel="noopener noreferrer">
+                            <span class="rating__score">{rating.score}<small>/5</small></span>
+                            <span class="rating__label">{rating.platform} · {rating.count}</span>
+                            <span class="visually-hidden">(opens in a new tab)</span>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+
+        <ul class="review-list" data-stagger>
+            {
+                reviews.map((review) => (
+                    <li>
+                        <figure class="review">
+                            <div>
+                                <div class="review__stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                                <blockquote>“{review.quote}”</blockquote>
+                            </div>
+                            <figcaption>
+                                <strong>{review.author}</strong>
+                                <span>{review.origin} · {review.date} · Tripadvisor</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+                ))
+            }
+        </ul>
+
+        <p class="reviews__note" data-reveal>Ratings are a public snapshot verified in October 2026 and may change on each platform.</p>
+    </div>
+</section>
