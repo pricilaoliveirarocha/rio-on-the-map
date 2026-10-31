@@ -1,3 +1,110 @@
+/* Hero: fills the first screen and leaves the promises row just in view */
+
+.page-hero--tall {
+    align-items: center;
+    min-height: clamp(30rem, calc(100svh - 10rem), 48rem);
+    overflow: hidden;
+}
+
+/* A slight zoom toward the bay crops the terrace furniture out of the frame. */
+.page-hero--tall img {
+    transform: scale(1.18);
+    transform-origin: 35% 45%;
+}
+
+.page-hero--tall::after {
+    background:
+        linear-gradient(90deg, rgb(7 33 58 / 0.86) 0%, rgb(7 33 58 / 0.6) 34%, rgb(7 33 58 / 0) 68%),
+        linear-gradient(0deg, rgb(7 33 58 / 0.4) 0%, rgb(7 33 58 / 0) 30%);
+}
+
+.home-hero__title {
+    max-width: 44rem;
+    font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+}
+
+.page-hero__copy > p {
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+}
+
+.home-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.home-hero__actions .btn {
+    min-height: 3.25rem;
+    margin-top: 0;
+    padding-inline: 1.75rem;
+    font-size: 1rem;
+}
+
+.btn--ghost {
+    border-color: rgb(255 255 255 / 0.75);
+    background: rgb(7 33 58 / 0.25);
+    color: var(--white);
+}
+
+.btn--ghost:hover {
+    border-color: var(--white);
+    background: rgb(7 33 58 / 0.5);
+}
+
+.home-hero__ratings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.home-hero__ratings a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-block: 0.25rem;
+}
+
+.home-hero__ratings a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.home-hero__ratings svg {
+    color: var(--yellow);
+}
+
+.home-hero__ratings strong {
+    font-weight: 600;
+}
+
+@media (max-width: 620px) {
+    .page-hero--tall {
+        align-items: end;
+        min-height: calc(100svh - 4.5rem);
+    }
+
+    .page-hero--tall img {
+        transform: none;
+    }
+
+    .page-hero--tall::after {
+        background: linear-gradient(180deg, rgb(7 33 58 / 0.1) 0%, rgb(7 33 58 / 0.35) 40%, rgb(7 33 58 / 0.88) 80%);
+    }
+
+    .home-hero__actions {
+        width: 100%;
+    }
+
+    .home-hero__actions .btn {
+        flex: 1 1 100%;
+    }
+}
+
 /* Promises row */
 
 .promises {

@@ -25,9 +25,24 @@ const promises = [
 >
     <main id="main-content">
         <PageHero image={heroImage} alt="Sugarloaf Mountain and Guanabara Bay at sunset, seen from a hillside above Rio de Janeiro" focus="72% 50%" tall>
-            <h1 class="title-1">Discover Rio de Janeiro<br />beyond the obvious</h1>
+            <h1 class="title-1 home-hero__title">Discover Rio de Janeiro<br />beyond the obvious</h1>
             <p>Bespoke private tours to iconic landmarks and hidden gems, designed around you.</p>
-            <a class="btn btn--yellow" href="/experiences/">Explore experiences</a>
+            <div class="home-hero__actions">
+                <a class="btn btn--yellow" href="/experiences/">Explore experiences</a>
+                <a class="btn btn--ghost" href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+            </div>
+            <ul class="home-hero__ratings">
+                {
+                    ratings.map((rating) => (
+                        <li>
+                            <a href={rating.href} target="_blank" rel="noopener noreferrer">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.8.9-5 4.7 1.300 6.700-6-3.300-6 3.300 1.300-6.700-5-4.700 6.800-.9z" /></svg>
+                                <strong>{rating.score.toFixed(1)}</strong> on {rating.platform}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
         </PageHero>
 
         <div class="promises">
