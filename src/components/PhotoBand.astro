@@ -1,26 +1,27 @@
 ---
+import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
-import Arrow from './Arrow.astro'
-import bandImage from '../assets/rio-sunset-hero.png'
 
 interface Props {
+    image: ImageMetadata
+    alt: string
     href: string
     action: string
+    tone: 'aqua' | 'yellow'
 }
 
-const { href, action } = Astro.props
+const { image, alt, href, action, tone } = Astro.props
 ---
 
-<section class="photo-band" aria-labelledby="band-title">
-    <div class="photo-band__media">
-        <Image src={bandImage} format="webp" widths={[820, 1280, 1916]} sizes="100vw" alt="Sunset over Guanabara Bay and Sugarloaf Mountain in Rio de Janeiro" />
-    </div>
-    <div class="photo-band__copy" data-reveal>
-        <h2 id="band-title" class="display display--md"><slot name="title" /></h2>
-        <p><slot /></p>
-        <a class="btn" href={href}>
-            {action}
-            <Arrow />
-        </a>
+<section class={`band band--${tone}`}>
+    <div class="wrap band__inner">
+        <div class="band__copy">
+            <h2 class="title-2"><slot name="title" /></h2>
+            <p><slot /></p>
+            <a class="btn btn--white" href={href}>{action}</a>
+        </div>
+        <div class="band__media">
+            <Image src={image} format="webp" widths={[600, 900, Math.min(image.width, 1280)]} sizes="(max-width: 820px) 92vw, 56vw" alt={alt} />
+        </div>
     </div>
 </section>

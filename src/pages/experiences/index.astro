@@ -1,184 +1,93 @@
 ---
 import { Image } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import Arrow from '../../components/Arrow.astro'
+import Icon from '../../components/Icon.astro'
+import PageHero from '../../components/PageHero.astro'
 import RouteMap from '../../components/RouteMap.astro'
+import heroImage from '../../assets/experiences/petropolis-day-tour.jpg'
 import { chapters } from '../../data/experiences'
 import '../../styles/experiences.css'
-
-const heroChapters = chapters.slice(0, 4)
-let tourIndex = 0
 ---
 
 <BaseLayout
     title="Private Tours & Experiences in Rio de Janeiro | Rio On The Map"
-    description="Private tours in Rio de Janeiro on one living map: iconic landmarks, Tijuca forest, Petrópolis, Ilha Grande, Búzios, nightlife and fully custom experiences."
-    headerOn="paper"
+    description="Private tours in Rio de Janeiro: iconic landmarks, Tijuca forest, Petrópolis, Ilha Grande, Búzios, nightlife and fully custom experiences."
 >
     <main id="main-content">
-        <header class="exp-hero">
-            <div class="exp-hero__head">
-                <h1 class="display">
-                    Unforgettable Tours<br /><span class="tint-green">in Rio de Janeiro</span>
-                </h1>
-                <p class="lede" data-reveal>
-                    From iconic landmarks to off-the-beaten-path treasures, each experience is designed to show you a
-                    different side of Rio: authentic, exclusive and yours alone.
-                </p>
+        <PageHero image={heroImage} alt="Historic Quitandinha palace and its lake in the mountains of Petrópolis" focus="50% 45%">
+            <h1 class="title-1">Unforgettable tours<br />in Rio de Janeiro</h1>
+            <p>From iconic landmarks to off-the-beaten-path treasures, each experience is private and shaped around you.</p>
+        </PageHero>
+
+        <section class="section tours" id="tours" aria-labelledby="tours-title">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 id="tours-title" class="title-2">Find your private experience</h2>
+                    <p class="muted">Every tour can be customized to your interests and pace.</p>
+                </div>
+
+                <div class="filters" role="group" aria-label="Filter tours by type" data-filters hidden>
+                    <button type="button" aria-pressed="true" data-filter="all">All tours</button>
+                    {chapters.map((chapter) => <button type="button" aria-pressed="false" data-filter={chapter.id}>{chapter.title}</button>)}
+                </div>
+
+                <ul class="tour-grid">
+                    {
+                        chapters.flatMap((chapter) =>
+                            chapter.tours.map((tour) => (
+                                <li class="tour card" id={tour.slug} data-chapter={chapter.id}>
+                                    <div class="tour__media">
+                                        <Image src={tour.image} alt={tour.imageAlt} widths={[400, Math.min(tour.image.width, 700)]} sizes="(max-width: 620px) 92vw, (max-width: 980px) 46vw, 30vw" />
+                                        <span class="tour__place">
+                                            <Icon name="pin" size={16} />
+                                            {tour.stops.map((stop) => stop.label).join(' & ') || 'Anywhere you like'}
+                                        </span>
+                                    </div>
+                                    <div class="tour__body">
+                                        <h3 class="title-3">{tour.name}</h3>
+                                        <p class="muted">{tour.description}</p>
+                                        <p class="tour__meta"><Icon name="group" size={18} /> Private tour · {chapter.title}</p>
+                                        <a class="btn btn--outline" href={`/?tour=${tour.slug}#inquiry`} aria-label={`Ask about the ${tour.name}`}>Ask about this tour</a>
+                                    </div>
+                                </li>
+                            )),
+                        )
+                    }
+                </ul>
             </div>
+        </section>
 
-            <ul class="exp-covers">
-                {
-                    heroChapters.map((chapter) => (
-                        <li>
-                            <a href={`#${chapter.id}`}>
-                                <span class="exp-covers__media">
-                                    <Image src={chapter.cover} alt={chapter.coverAlt} width={600} widths={[400, 600]} sizes="(max-width: 700px) 50vw, 25vw" />
-                                </span>
-                                <span class="exp-covers__text">
-                                    <strong>{chapter.title}</strong>
-                                    <span>{chapter.summary}</span>
-                                </span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </header>
-
-        <div class="journey">
-            <div class="journey__map">
+        <section class="section where" aria-labelledby="where-title">
+            <div class="wrap where__inner">
+                <div class="where__copy">
+                    <h2 id="where-title" class="title-2">Where our tours go</h2>
+                    <p class="muted">From Rio’s landmarks to the mountains of Petrópolis, the islands of Ilha Grande and the beaches of Búzios and Arraial do Cabo.</p>
+                </div>
                 <RouteMap />
             </div>
-
-            <div class="journey__tours">
-                {
-                    chapters.map((chapter) => (
-                        <section class="chapter" id={chapter.id} aria-labelledby={`${chapter.id}-title`}>
-                            <h2 id={`${chapter.id}-title`} class="chapter__title">
-                                {chapter.title}
-                            </h2>
-
-                            {chapter.tours.map((tour) => {
-                                tourIndex += 1
-                                return (
-                                    <article class="tour" id={tour.slug} data-tour={tour.slug} data-tour-index={tourIndex}>
-                                        <div class="tour__media">
-                                            <Image src={tour.image} alt={tour.imageAlt} widths={[400, 600, 900]} sizes="(max-width: 900px) 92vw, 44vw" />
-                                        </div>
-                                        <div class="tour__text">
-                                            <h3>{tour.name}</h3>
-                                            <p>{tour.description}</p>
-                                            <a class="tour__link" href={`/?tour=${tour.slug}#inquiry`}>
-                                                Ask about this tour
-                                                <Arrow />
-                                            </a>
-                                        </div>
-                                    </article>
-                                )
-                            })}
-                        </section>
-                    ))
-                }
-            </div>
-        </div>
+        </section>
     </main>
 </BaseLayout>
 
 <script>
-    import { initReveal, prefersMotion } from '../../scripts/motion'
+    const filters = document.querySelector<HTMLElement>('[data-filters]')!
+    const buttons = [...filters.querySelectorAll<HTMLButtonElement>('[data-filter]')]
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-chapter]')]
 
-    interface TourStop {
-        slug: string
-        name: string
-        route: string
-        width: number
-        x: number
-        y: number
-        stops: string[]
-    }
-
-    const atlas = document.querySelector<HTMLElement>('[data-atlas]')!
-    const svg = atlas.querySelector<SVGSVGElement>('[data-atlas-svg]')!
-    const tours: TourStop[] = JSON.parse(document.querySelector('[data-atlas-tours]')!.textContent!)
-    const pins = [...atlas.querySelectorAll<SVGGElement>('[data-pin]')]
-    const routes = [...atlas.querySelectorAll<SVGPathElement>('[data-route]')]
-    const nameEl = atlas.querySelector<HTMLElement>('[data-atlas-name]')!
-    const countEl = atlas.querySelector<HTMLElement>('[data-atlas-count]')!
-
-    const overview = tours[tours.length - 1]
-    const camera = { x: overview.x, y: overview.y, width: overview.width }
-    const pinOrigins = pins.map((pin) => pin.getAttribute('transform')!)
-
-    /* The camera is a viewBox. Ink and labels stay the same size on screen at every zoom. */
-    const render = () => {
-        const box = atlas.getBoundingClientRect()
-        const height = camera.width * (box.height / box.width)
-        svg.setAttribute('viewBox', `${camera.x - camera.width / 2} ${camera.y - height / 2} ${camera.width} ${height}`)
-        const unit = camera.width / box.width
-        svg.style.setProperty('--unit', String(unit))
-        pins.forEach((pin, index) => pin.setAttribute('transform', `${pinOrigins[index]} scale(${unit})`))
-    }
-
-    let frame = 0
-    const moveCamera = (target: TourStop) => {
-        cancelAnimationFrame(frame)
-        if (!prefersMotion()) {
-            Object.assign(camera, { x: target.x, y: target.y, width: target.width })
-            render()
-            return
-        }
-        const from = { ...camera }
-        const started = performance.now()
-        const step = (now: number) => {
-            const t = Math.min((now - started) / 700, 1)
-            const eased = 1 - (1 - t) ** 3
-            camera.x = from.x + (target.x - from.x) * eased
-            camera.y = from.y + (target.y - from.y) * eased
-            camera.width = from.width + (target.width - from.width) * eased
-            render()
-            if (t < 1) frame = requestAnimationFrame(step)
-        }
-        frame = requestAnimationFrame(step)
-    }
-
-    const setActive = (slug: string | null) => {
-        const tour = tours.find((item) => item.slug === slug)
-        moveCamera(tour ?? overview)
-        routes.forEach((route) => route.classList.toggle('is-current', route.dataset.route === slug))
-
-        const showAll = !tour || tour.stops.length === 0
-        pins.forEach((pin) => {
-            const owner = pin.dataset.pinTour
-            pin.classList.toggle('is-active', Boolean(owner) && owner === slug)
-            pin.classList.toggle('is-dim', Boolean(owner) && !showAll && owner !== slug)
+    const apply = (filter: string) => {
+        buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)))
+        cards.forEach((card) => {
+            card.hidden = filter !== 'all' && card.dataset.chapter !== filter
         })
-
-        nameEl.textContent = tour?.name ?? 'All of our private tours'
-        const position = tours.findIndex((item) => item.slug === slug)
-        countEl.textContent = position >= 0 ? `${position + 1} of ${tours.length}` : 'Map of Rio'
     }
 
-    render()
-    setActive(null)
+    filters.hidden = false
+    buttons.forEach((button) => button.addEventListener('click', () => apply(button.dataset.filter!)))
 
-    /* The tour crossing the middle of the screen is the one shown on the map. */
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) setActive((entry.target as HTMLElement).dataset.tour ?? null)
-            })
-        },
-        { rootMargin: '-45% 0px -50% 0px' },
-    )
-    document.querySelectorAll('[data-tour], .exp-hero').forEach((element) => observer.observe(element))
-
-    pins.forEach((pin) => {
-        const slug = pin.dataset.pinTour
-        if (slug) pin.addEventListener('click', () => document.getElementById(slug)?.scrollIntoView({ block: 'center' }))
-    })
-
-    addEventListener('resize', render, { passive: true })
-
-    initReveal()
+    /* Links such as /experiences/#hidden-gems open with that filter applied. */
+    const fromHash = location.hash.slice(1)
+    if (buttons.some((button) => button.dataset.filter === fromHash)) {
+        apply(fromHash)
+        document.getElementById('tours')?.scrollIntoView()
+    }
 </script>

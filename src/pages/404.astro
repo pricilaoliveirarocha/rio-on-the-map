@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Arrow from '../components/Arrow.astro'
 ---
 
-<BaseLayout title="Off the Map | Rio On The Map" description="This page could not be found." headerOn="paper" noindex>
-    <main id="main-content" style="min-height:80svh;display:grid;align-content:center;justify-items:start;gap:1.5rem;padding:9rem var(--gutter) 5rem">
-        <h1 class="display">This Place Is<br /><span class="tint-green">Off the Map</span></h1>
-        <p class="lede">Even we can’t find this page. Let’s get you back to somewhere beautiful.</p>
-        <a class="btn btn--navy" href="/">Back to Home <Arrow /></a>
+<BaseLayout title="Off the Map | Rio On The Map" description="This page could not be found." noindex>
+    <main id="main-content" class="section">
+        <div class="wrap section-head">
+            <h1 class="title-1">This place is off the map</h1>
+            <p class="muted">Even we can’t find this page. Let’s get you back to somewhere beautiful.</p>
+            <a class="btn btn--navy" href="/">Back to home</a>
+        </div>
     </main>
 </BaseLayout>

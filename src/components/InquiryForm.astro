@@ -1,8 +1,4 @@
----
-import Arrow from './Arrow.astro'
----
-
-<form class="inquiry-form" action="/send-contact.php" method="post" data-inquiry-form>
+<form class="inquiry-form card" action="/send-contact.php" method="post" data-inquiry-form>
     <fieldset class="inquiry-form__type">
         <legend>How can we help?</legend>
         <label>
@@ -46,10 +42,7 @@ import Arrow from './Arrow.astro'
         <span>I agree to be contacted by email about this message.</span>
     </label>
 
-    <button class="btn btn--navy" type="submit">
-        Send Message
-        <Arrow />
-    </button>
+    <button class="btn btn--navy" type="submit">Send Message</button>
 
     <p class="inquiry-form__status" role="status" data-inquiry-status hidden></p>
 </form>

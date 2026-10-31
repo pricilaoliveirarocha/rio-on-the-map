@@ -1,5 +1,4 @@
 ---
-import '@fontsource/dm-serif-display/400.css'
 import '@fontsource-variable/figtree/index.css'
 import '../styles/global.css'
 import Header from '../components/Header.astro'
@@ -9,12 +8,10 @@ import { site } from '../data/site'
 interface Props {
     title: string
     description: string
-    /** Colour of the content the transparent header sits on at the top of the page. */
-    headerOn?: 'photo' | 'paper'
     noindex?: boolean
 }
 
-const { title, description, headerOn = 'photo', noindex = false } = Astro.props
+const { title, description, noindex = false } = Astro.props
 const canonical = new URL(Astro.url.pathname, site.url).href
 const socialImage = new URL('/images/rio-on-the-map-social.jpg', site.url).href
 const organization = {
@@ -51,21 +48,12 @@ const organization = {
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json" set:html={JSON.stringify(organization)} />
         <script is:inline>
-            ;(function () {
-                var root = document.documentElement
-                root.classList.add('js')
-                if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-                root.classList.add('anim')
-                // Never leave content hidden if the motion bundle fails to load.
-                setTimeout(function () {
-                    if (!root.classList.contains('ready')) root.classList.remove('anim')
-                }, 2500)
-            })()
+            document.documentElement.classList.add('js')
         </script>
     </head>
     <body>
         <a class="skip-link" href="#main-content">Skip to content</a>
-        <Header on={headerOn} />
+        <Header />
         <slot />
         <Footer />
     </body>
