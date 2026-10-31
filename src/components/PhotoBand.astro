@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets'
+import Arrow from './Arrow.astro'
+import bandImage from '../assets/rio-sunset-hero.png'
+
+interface Props {
+    href: string
+    action: string
+}
+
+const { href, action } = Astro.props
+---
+
+<section class="photo-band" aria-labelledby="band-title">
+    <div class="photo-band__media">
+        <Image src={bandImage} format="webp" widths={[820, 1280, 1916]} sizes="100vw" alt="Sunset over Guanabara Bay and Sugarloaf Mountain in Rio de Janeiro" />
+    </div>
+    <div class="photo-band__copy" data-reveal>
+        <h2 id="band-title" class="display display--md"><slot name="title" /></h2>
+        <p><slot /></p>
+        <a class="btn" href={href}>
+            {action}
+            <Arrow />
+        </a>
+    </div>
+</section>

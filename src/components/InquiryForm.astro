@@ -1,0 +1,55 @@
+---
+import Arrow from './Arrow.astro'
+---
+
+<form class="inquiry-form" action="/send-contact.php" method="post" data-inquiry-form>
+    <fieldset class="inquiry-form__type">
+        <legend>How can we help?</legend>
+        <label>
+            <input type="radio" name="inquiry_type" value="A private tour request" checked />
+            <span>Plan a private tour</span>
+        </label>
+        <label>
+            <input type="radio" name="inquiry_type" value="A question" />
+            <span>Ask a question</span>
+        </label>
+    </fieldset>
+
+    <label class="field">
+        <span>Name</span>
+        <input type="text" name="name" required minlength="2" maxlength="100" autocomplete="name" />
+    </label>
+    <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" required maxlength="160" autocomplete="email" />
+    </label>
+    <label class="field">
+        <span>Travel dates <small>(optional)</small></span>
+        <input type="text" name="travel_dates" maxlength="100" />
+    </label>
+    <label class="field">
+        <span>Number of guests <small>(optional)</small></span>
+        <input type="number" name="guests" min="1" max="30" inputmode="numeric" />
+    </label>
+    <label class="field field--wide">
+        <span>Message</span>
+        <textarea name="message" rows="5" required minlength="10" maxlength="3000" data-inquiry-message></textarea>
+    </label>
+
+    <label class="inquiry-form__hp" aria-hidden="true">
+        Company
+        <input type="text" name="company" tabindex="-1" autocomplete="off" />
+    </label>
+
+    <label class="inquiry-form__consent">
+        <input type="checkbox" name="consent" value="accepted" required />
+        <span>I agree to be contacted by email about this message.</span>
+    </label>
+
+    <button class="btn btn--navy" type="submit">
+        Send Message
+        <Arrow />
+    </button>
+
+    <p class="inquiry-form__status" role="status" data-inquiry-status hidden></p>
+</form>

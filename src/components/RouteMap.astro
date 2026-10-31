@@ -1,0 +1,126 @@
+---
+import { experiences, rioCenter, type LonLat } from '../data/experiences'
+
+/* Equirectangular projection around Rio: real coordinates, so the map stays truthful. */
+const WEST = -45.1
+const NORTH = -21.0
+const SCALE = 300
+const LAT_STRETCH = 1.086
+const project = ([lon, lat]: LonLat): [number, number] => [
+    Math.round((lon - WEST) * SCALE * 10) / 10,
+    Math.round((NORTH - lat) * SCALE * LAT_STRETCH * 10) / 10,
+]
+
+const smooth = (points: [number, number][], closed = false) => {
+    const at = (i: number) => (closed ? points[(i + points.length) % points.length] : points[Math.min(Math.max(i, 0), points.length - 1)])
+    const round = (value: number) => Math.round(value * 10) / 10
+    let d = `M${points[0].join(' ')}`
+    const segments = closed ? points.length : points.length - 1
+    for (let i = 0; i < segments; i++) {
+        const [p0, p1, p2, p3] = [at(i - 1), at(i), at(i + 1), at(i + 2)]
+        d += `C${round(p1[0] + (p2[0] - p0[0]) / 6)} ${round(p1[1] + (p2[1] - p0[1]) / 6)} ${round(p2[0] - (p3[0] - p1[0]) / 6)} ${round(p2[1] - (p3[1] - p1[1]) / 6)} ${p2.join(' ')}`
+    }
+    return closed ? `${d}Z` : d
+}
+
+const coast: LonLat[] = [
+    [-46.2, -23.9], [-45.42, -23.62], [-45.05, -23.42], [-44.72, -23.24], [-44.7, -23.2], [-44.55, -23.03],
+    [-44.32, -23.01], [-44.22, -22.94], [-44.04, -22.96], [-43.88, -22.93], [-43.7, -22.95], [-43.62, -23.02],
+    [-43.57, -23.07], [-43.46, -23.03], [-43.3, -23.01], [-43.2, -22.99], [-43.155, -22.95], [-43.17, -22.925], [-43.17, -22.895], [-43.215, -22.875],
+    [-43.25, -22.8], [-43.24, -22.74], [-43.14, -22.7], [-43.03, -22.69], [-42.99, -22.74], [-43.06, -22.8], [-43.09, -22.86], [-43.125, -22.895], [-43.13, -22.93], [-43.08, -22.965],
+    [-42.95, -22.97], [-42.8, -22.94], [-42.5, -22.94], [-42.2, -22.94], [-42.03, -22.98], [-41.98, -22.88],
+    [-41.88, -22.75], [-42, -22.6], [-41.85, -22.42], [-41.6, -22.25], [-41.2, -22], [-40.9, -21.4], [-40.6, -20.2],
+]
+const ilhaGrande: LonLat[] = [[-44.37, -23.11], [-44.25, -23.08], [-44.1, -23.1], [-44.08, -23.17], [-44.2, -23.21], [-44.32, -23.19]]
+
+const governador: LonLat[] = [[-43.24, -22.81], [-43.19, -22.79], [-43.15, -22.8], [-43.17, -22.83], [-43.22, -22.835]]
+
+const coastLine = smooth(coast.map(project))
+const [farRight] = project([-40.6, -20.2])
+const [farLeft] = project([-46.2, -23.9])
+const land = `${coastLine}L${farRight} -900L${farLeft} -900Z`
+const islands = [ilhaGrande, governador].map((outline) => smooth(outline.map(project), true))
+
+const home = project(rioCenter)
+
+const arc = (from: [number, number], to: [number, number]) => {
+    const [dx, dy] = [to[0] - from[0], to[1] - from[1]]
+    const lift = 0.22
+    const control = [from[0] + dx / 2 + dy * lift, from[1] + dy / 2 - dx * lift].map((value) => Math.round(value * 10) / 10)
+    return `Q${control.join(' ')} ${to.join(' ')}`
+}
+
+const tours = experiences.map((tour) => {
+    const points = tour.stops.map((stop) => project(stop.at))
+    let d = ''
+    points.reduce((from, to) => {
+        d += arc(from, to)
+        return to
+    }, home)
+    const [x, y] = project(tour.camera.at)
+    return {
+        slug: tour.slug,
+        name: tour.name,
+        route: d ? `M${home.join(' ')}${d}` : '',
+        width: Math.round(tour.camera.span * SCALE),
+        x,
+        y,
+        stops: tour.stops.map((stop) => stop.label),
+    }
+})
+
+const pins = experiences.flatMap((tour) =>
+    tour.stops.map((stop) => ({ label: stop.label, slug: tour.slug, position: project(stop.at), nearCity: Math.abs(stop.at[0] - rioCenter[0]) < 0.2 && Math.abs(stop.at[1] - rioCenter[1]) < 0.2 })),
+)
+const places = [{ lon: -43.6, lat: -21.45, name: 'Rio de Janeiro state' }, { lon: -42.7, lat: -23.45, name: 'Atlantic Ocean' }].map((place) => ({
+    ...place,
+    position: project([place.lon, place.lat]),
+}))
+const sea = Array.from({ length: 5 }, (_, i) => i + 1)
+const parallels = [-21, -21.5, -22, -22.5, -23, -23.5, -24].map((lat) => project([WEST, lat])[1])
+const meridians = [-45, -44.5, -44, -43.5, -43, -42.5, -42, -41.5, -41].map((lon) => project([lon, NORTH])[0])
+const overview = tours[tours.length - 1]
+---
+
+<div class="atlas" data-atlas data-home-x={home[0]} data-home-y={home[1]}>
+    <svg
+        class="atlas__svg"
+        viewBox={`${overview.x - overview.width / 2} ${overview.y - overview.width / 2} ${overview.width} ${overview.width}`}
+        preserveAspectRatio="xMidYMid slice"
+        role="img"
+        aria-label="Map of Rio de Janeiro state showing where each private tour goes, from Ilha Grande in the west to Búzios in the east and Petrópolis in the mountains."
+        data-atlas-svg
+    >
+        <g class="atlas__graticule">
+            {parallels.map((y) => <line x1="-200" x2="1800" y1={y} y2={y} />)}
+            {meridians.map((x) => <line x1={x} x2={x} y1="-400" y2="1400" />)}
+        </g>
+        {sea.map((step) => <path class="atlas__depth" d={coastLine} transform={`translate(0 ${step * 13})`} style={`opacity:${0.34 - step * 0.055}`} />)}
+        <path class="atlas__land" d={land}></path>
+        <path class="atlas__coast" d={coastLine}></path>
+        {islands.map((d) => <path class="atlas__land atlas__coast" d={d} />)}
+
+        {places.map((place) => <text class="atlas__place" x={place.position[0]} y={place.position[1]}>{place.name}</text>)}
+
+        {tours.filter((tour) => tour.route).map((tour) => <path class="atlas__route" d={tour.route} data-route={tour.slug} />)}
+
+        <g class="atlas__pin atlas__pin--home" transform={`translate(${home[0]} ${home[1]})`} data-pin>
+            <circle r="4.5"></circle>
+        </g>
+        {
+            pins.map((pin) => (
+                <g class={`atlas__pin${pin.nearCity ? ' atlas__pin--city' : ''}`} transform={`translate(${pin.position[0]} ${pin.position[1]})`} data-pin data-pin-tour={pin.slug}>
+                    <circle r="5" />
+                    <text x="10" y="4.500">{pin.label}</text>
+                </g>
+            ))
+        }
+    </svg>
+
+    <p class="atlas__caption" aria-hidden="true">
+        <span class="atlas__count" data-atlas-count>Map of Rio</span>
+        <span class="atlas__name" data-atlas-name>All of our private tours</span>
+    </p>
+</div>
+
+<script is:inline type="application/json" data-atlas-tours set:html={JSON.stringify(tours)}></script>

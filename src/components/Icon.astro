@@ -1,0 +1,25 @@
+---
+const paths = {
+    diamond: ['M7 4h10l5 6-10 11L2 10z', 'M2 10h20M9 4l-2 6 5 11 5-11-2-6'],
+    group: ['M12 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z', 'M5 20c.6-4 3.3-6 7-6s6.4 2 7 6', 'M5 11.5a2.5 2.5 0 1 1 1.6-5M19 11.5a2.5 2.5 0 1 0-1.6-5'],
+    pin: ['M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z', 'M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z'],
+    star: ['M12 3l2.7 5.8 6.3.8-4.6 4.3 1.2 6.2L12 17l-5.6 3.1 1.2-6.2L3 9.6l6.3-.8z'],
+    instagram: ['M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z', 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17.3 6.7h.01'],
+    whatsapp: ['M3.5 20.5l1.3-4.4A8.5 8.5 0 1 1 8 19.3z', 'M9 8.5c-.5.6-.6 1.6.2 3 .9 1.5 2.3 2.7 3.8 3.3 1.2.4 2.2.2 2.7-.6l.3-.8-2-1-.8.8c-.8-.3-1.9-1.3-2.4-2.3l.7-.8-.9-2.1z'],
+    mail: ['M3 6h18v12H3z', 'M3 7l9 7 9-7'],
+    facebook: ['M14 21v-8h3l.5-3.5H14V7.4c0-1 .3-1.7 1.8-1.7h1.8V2.6c-.9-.1-1.8-.1-2.7-.1-2.6 0-4.4 1.6-4.4 4.5v2.5h-3V13h3v8'],
+    compass: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M15.5 8.5l-2 5-5 2 2-5z'],
+} as const
+
+interface Props {
+    name: keyof typeof paths
+    size?: number
+    draw?: boolean
+}
+
+const { name, size = 24, draw = false } = Astro.props
+---
+
+<svg class="icon" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-draw={draw || undefined}>
+    {paths[name].map((d) => <path d={d} pathLength="1" />)}
+</svg>

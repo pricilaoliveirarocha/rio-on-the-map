@@ -1,0 +1,302 @@
+.exp-hero {
+    padding: clamp(7.5rem, 13vw, 11rem) var(--gutter) clamp(3.5rem, 6vw, 5.5rem);
+    background: var(--paper);
+}
+
+.exp-hero .display {
+    font-size: clamp(2.75rem, 5.1vw, 5rem);
+}
+
+.exp-hero__head {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 1.5rem clamp(2rem, 5vw, 5rem);
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.exp-covers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.exp-covers a {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+}
+
+.exp-covers__media {
+    grid-column: 1 / -1;
+    display: block;
+    aspect-ratio: 1 / 0.95;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--paper-warm);
+}
+
+.exp-covers__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.exp-covers__text {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+}
+
+.exp-covers__text strong {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+/* Journey: the map stays, the tours pass by. */
+
+.journey {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    background: var(--white);
+}
+
+.journey__map {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    z-index: 2;
+}
+
+.atlas {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    background: var(--navy-deep);
+    color: var(--white);
+    --unit: 1;
+}
+
+.atlas__svg {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    /* Every stroke is expressed in on-screen pixels × the camera's current zoom. */
+    --unit: 1;
+}
+
+.atlas__graticule line {
+    stroke: rgb(255 255 255 / 0.05);
+    stroke-width: calc(1px * var(--unit));
+}
+
+.atlas__depth {
+    fill: none;
+    stroke: var(--aqua);
+    stroke-width: calc(1px * var(--unit));
+}
+
+.atlas__land {
+    fill: #17405f;
+}
+
+.atlas__coast {
+    fill: none;
+    stroke: var(--aqua);
+    stroke-width: calc(1.4px * var(--unit));
+}
+
+.atlas__land.atlas__coast {
+    fill: #17405f;
+}
+
+.atlas__place {
+    fill: rgb(255 255 255 / 0.32);
+    font: 400 calc(15px * var(--unit)) var(--serif);
+    letter-spacing: 0.04em;
+    text-anchor: middle;
+}
+
+.atlas__route {
+    fill: none;
+    stroke: var(--yellow);
+    stroke-width: calc(2px * var(--unit));
+    stroke-linecap: round;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.atlas__route.is-current {
+    opacity: 1;
+}
+
+.atlas__pin {
+    cursor: pointer;
+}
+
+.atlas__pin circle {
+    fill: var(--aqua);
+    stroke: var(--navy-deep);
+    stroke-width: 1.5;
+}
+
+.atlas__pin text {
+    fill: var(--white);
+    font: 500 13px var(--sans);
+    paint-order: stroke;
+    stroke: var(--navy-deep);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
+.atlas__pin--home circle {
+    fill: var(--white);
+    cursor: default;
+}
+
+/* City pins sit too close to label at overview zoom; each speaks up when active. */
+.atlas__pin--city:not(.is-active) text {
+    opacity: 0;
+}
+
+.atlas__pin.is-dim {
+    opacity: 0.25;
+}
+
+.atlas__pin.is-dim text {
+    opacity: 0;
+}
+
+.atlas__pin.is-active circle {
+    fill: var(--yellow);
+}
+
+.atlas__pin.is-active text {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.atlas__caption {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem clamp(1.25rem, 3vw, 2.5rem);
+    background: linear-gradient(0deg, var(--navy-deep) 35%, transparent);
+}
+
+.atlas__name {
+    order: -1;
+    font: 400 clamp(1.1rem, 1.8vw, 1.6rem) / 1.2 var(--serif);
+}
+
+.atlas__count {
+    flex: none;
+    font-size: 0.85rem;
+    color: rgb(255 255 255 / 0.7);
+}
+
+/* Tour list */
+
+.journey__tours {
+    padding: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 4vw, 4.5rem) clamp(4rem, 7vw, 7rem);
+}
+
+.chapter + .chapter {
+    margin-top: clamp(5rem, 9vw, 9rem);
+}
+
+.chapter {
+    scroll-margin-top: 5rem;
+}
+
+.chapter__title {
+    margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--green);
+    font: 400 clamp(1.75rem, 2.8vw, 2.5rem) / 1.15 var(--serif);
+}
+
+.tour {
+    scroll-margin-top: 5rem;
+}
+
+.tour + .tour {
+    margin-top: clamp(3.5rem, 6vw, 6rem);
+}
+
+.tour__media {
+    aspect-ratio: 16 / 9.5;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--paper-warm);
+}
+
+.tour__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tour__text {
+    display: grid;
+    gap: 0.65rem;
+    justify-items: start;
+    padding-top: 1.35rem;
+}
+
+.tour__text h3 {
+    font: 400 clamp(1.55rem, 2.3vw, 2.1rem) / 1.15 var(--serif);
+}
+
+.tour__text p {
+    max-width: 34rem;
+    color: var(--ink-soft);
+}
+
+.tour__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+    padding-block: 0.35rem;
+    border-bottom: 1px solid currentColor;
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.tour__link:hover {
+    color: var(--green);
+}
+
+@media (max-width: 900px) {
+    .exp-hero__head {
+        grid-template-columns: 1fr;
+    }
+
+    .exp-covers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .journey {
+        grid-template-columns: 1fr;
+    }
+
+    .journey__map {
+        height: 38svh;
+        min-height: 15rem;
+    }
+
+    .atlas__caption {
+        padding-block: 0.75rem;
+    }
+}
+
