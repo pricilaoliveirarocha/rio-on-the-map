@@ -554,6 +554,11 @@ textarea {
     text-underline-offset: 3px;
 }
 
+.site-footer__legal a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 .site-footer__legal {
     margin-top: clamp(2.5rem, 4vw, 3.5rem);
     padding-top: 1.25rem;

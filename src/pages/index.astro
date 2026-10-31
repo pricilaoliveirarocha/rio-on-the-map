@@ -5,9 +5,9 @@ import PageHero from '../components/PageHero.astro'
 import PhotoBand from '../components/PhotoBand.astro'
 import Icon from '../components/Icon.astro'
 import InquiryForm from '../components/InquiryForm.astro'
-import heroImage from '../assets/rio-sunset-hero.png'
-import introImage from '../assets/experiences/rio-buzios-arraial.jpg'
-import beyondImage from '../assets/experiences/rio-ilha-grande-tour.jpg'
+import heroImage from '../assets/photos/sugarloaf-sunrise.jpg'
+import introImage from '../assets/photos/guide-with-guests-vista-chinesa.jpg'
+import beyondImage from '../assets/photos/green-islands-aerial.jpg'
 import { ratings, site } from '../data/site'
 import '../styles/home.css'
 
@@ -24,7 +24,7 @@ const promises = [
     description="Bespoke private tours in Rio de Janeiro, from iconic landmarks to hidden gems. Rated 5.0 on Google. Write to us and start planning your days in Rio."
 >
     <main id="main-content">
-        <PageHero image={heroImage} alt="Sugarloaf Mountain and Guanabara Bay at sunset, seen from a hillside above Rio de Janeiro" focus="72% 50%" tall>
+        <PageHero image={heroImage} alt="Sugarloaf Mountain and Guanabara Bay at sunrise, seen from above Rio de Janeiro" focus="62% 60%" tall>
             <h1 class="title-1 home-hero__title">Discover Rio de Janeiro<br />beyond the obvious</h1>
             <p>Bespoke private tours to iconic landmarks and hidden gems, designed around you.</p>
             <div class="home-hero__actions">
@@ -64,7 +64,7 @@ const promises = [
         <section class="intro" aria-labelledby="intro-title">
             <div class="wrap intro__inner">
                 <div class="intro__media">
-                    <Image src={introImage} widths={[500, 830]} sizes="(max-width: 860px) 92vw, 44vw" alt="Calm green water and a sandy beach framed by rocks in Búzios" />
+                    <Image src={introImage} widths={[600, 900, 1400]} sizes="(max-width: 860px) 92vw, 44vw" alt="A local guide showing guests the view of Rio de Janeiro from Vista Chinesa" />
                 </div>
                 <div class="intro__copy">
                     <h2 id="intro-title" class="title-2">Your Rio, privately curated</h2>
@@ -88,7 +88,7 @@ const promises = [
             </div>
         </section>
 
-        <PhotoBand tone="aqua" image={beyondImage} alt="Swimmers in a turquoise cove surrounded by forest at Ilha Grande" href="/experiences/#hidden-gems" action="Explore hidden gems">
+        <PhotoBand tone="aqua" image={beyondImage} alt="Small green islands with white-sand beaches in turquoise water off the Rio de Janeiro coast" href="/experiences/#hidden-gems" action="Explore hidden gems">
             <Fragment slot="title">A different side of Rio awaits</Fragment>
             Secluded beaches, breathtaking viewpoints and authentic local spots that most travelers never see.
         </PhotoBand>

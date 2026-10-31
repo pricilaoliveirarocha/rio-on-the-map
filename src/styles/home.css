@@ -3,13 +3,6 @@
 .page-hero--tall {
     align-items: center;
     min-height: clamp(30rem, calc(100svh - 10rem), 48rem);
-    overflow: hidden;
-}
-
-/* A slight zoom toward the bay crops the terrace furniture out of the frame. */
-.page-hero--tall img {
-    transform: scale(1.18);
-    transform-origin: 35% 45%;
 }
 
 .page-hero--tall::after {
@@ -86,12 +79,6 @@
     .page-hero--tall {
         align-items: end;
         min-height: calc(100svh - 4.5rem);
-    }
-
-    /* Lifts Sugarloaf above the text and crops the roof out of the narrow frame. */
-    .page-hero--tall img {
-        transform: scale(1.55);
-        transform-origin: 62% 100%;
     }
 
     .page-hero--tall::after {

@@ -4,11 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Icon from '../components/Icon.astro'
 import PageHero from '../components/PageHero.astro'
 import PhotoBand from '../components/PhotoBand.astro'
-import heroImage from '../assets/experiences/rio-coast-nature.jpg'
-import mosaicMain from '../assets/experiences/petropolis-day-tour.jpg'
-import mosaicTop from '../assets/experiences/rio-tijuca-explore.jpg'
-import mosaicBottom from '../assets/experiences/niteroi-day-tour.jpg'
-import bandImage from '../assets/rio-sunset-hero.png'
+import heroImage from '../assets/photos/botafogo-christ-mountains.jpg'
+import mosaicMain from '../assets/photos/selaron-steps-day.jpg'
+import mosaicTop from '../assets/photos/rio-mountains-morning.jpg'
+import mosaicBottom from '../assets/photos/taunay-waterfall-tijuca.jpg'
+import bandImage from '../assets/photos/niteroi-bay-orange-sunset.jpg'
 import { approachSteps, principles, ratings, reviews } from '../data/site'
 import '../styles/about.css'
 
@@ -20,7 +20,7 @@ const totalReviews = ratings.reduce((total, rating) => total + Number.parseInt(r
     description="Over 10 years showing travelers the real Rio de Janeiro. Meet Rio On The Map: our story, our philosophy and how we shape every private tour with you."
 >
     <main id="main-content" class="about">
-        <PageHero image={heroImage} alt="Long Atlantic waves rolling towards a green headland on the Rio coast" focus="50% 40%">
+        <PageHero image={heroImage} alt="Christ the Redeemer on Corcovado above Botafogo Bay in Rio de Janeiro" focus="50% 45%">
             <h1 class="title-1">Passion for Rio,<br />curated for you</h1>
             <p>We are locals who never got tired of showing people our city.</p>
         </PageHero>
@@ -60,9 +60,9 @@ const totalReviews = ratings.reduce((total, rating) => total + Number.parseInt(r
                     <a class="btn btn--navy" href="/experiences/">Explore our tours</a>
                 </div>
                 <div class="mosaic">
-                    <Image class="mosaic__main" src={mosaicMain} widths={[500, 800]} sizes="(max-width: 860px) 56vw, 26vw" alt="Historic Quitandinha palace and its lake in the mountains of Petrópolis" />
-                    <Image src={mosaicTop} width={600} sizes="(max-width: 860px) 36vw, 18vw" alt="The Vista Chinesa pavilion silhouetted against a golden sunset in Tijuca" />
-                    <Image src={mosaicBottom} width={600} sizes="(max-width: 860px) 36vw, 18vw" alt="Niterói Contemporary Art Museum beside Guanabara Bay" />
+                    <Image class="mosaic__main" src={mosaicMain} widths={[500, 800, 1100]} sizes="(max-width: 860px) 56vw, 26vw" alt="The colorful tiled Selarón Steps in Lapa, Rio de Janeiro" />
+                    <Image src={mosaicTop} widths={[400, 700]} sizes="(max-width: 860px) 36vw, 18vw" alt="Rio de Janeiro’s green mountains rising above the city in soft morning light" />
+                    <Image src={mosaicBottom} widths={[400, 700]} sizes="(max-width: 860px) 36vw, 18vw" alt="Taunay Waterfall framed by a stone arch in Tijuca National Park" />
                 </div>
             </div>
         </section>
@@ -144,7 +144,7 @@ const totalReviews = ratings.reduce((total, rating) => total + Number.parseInt(r
             </div>
         </section>
 
-        <PhotoBand tone="yellow" image={bandImage} alt="Sunset over Guanabara Bay and Sugarloaf Mountain in Rio de Janeiro" href="/contact/" action="Contact us">
+        <PhotoBand tone="yellow" image={bandImage} alt="Orange sunset over Guanabara Bay and Rio de Janeiro, seen from Niterói" href="/contact/" action="Contact us">
             <Fragment slot="title">Ready to explore Rio with us?</Fragment>
             Get in touch and let’s create a personalized experience just for you.
         </PhotoBand>
