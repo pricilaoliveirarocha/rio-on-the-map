@@ -16,44 +16,46 @@ const social = [
 ---
 
 <footer class="site-footer">
-    <div class="site-footer__main">
-        <div class="site-footer__brand">
-            <a class="brand" href="/">
-                <Image class="brand__logo" src={logo} alt="" width={56} widths={[56, 112]} sizes="56px" />
-                <span class="brand__name">Rio on the Map</span>
-            </a>
-            <p>Bespoke private tours in Rio de Janeiro, shaped around you.</p>
+    <div class="wrap">
+        <div class="site-footer__main">
+            <div class="site-footer__brand">
+                <a class="brand" href="/">
+                    <Image class="brand__logo" src={logo} alt="" width={56} widths={[56, 112]} sizes="56px" />
+                    <span class="brand__name">Rio on the Map</span>
+                </a>
+                <p>Bespoke private tours in Rio de Janeiro, shaped around you.</p>
+            </div>
+
+            <nav class="site-footer__col" aria-labelledby="footer-explore">
+                <h2 id="footer-explore">Explore</h2>
+                <ul>
+                    {navigation.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+                </ul>
+            </nav>
+
+            <div class="site-footer__col">
+                <h2>Contact</h2>
+                <ul>
+                    {
+                        contact.map((item) => (
+                            <li>
+                                <a href={item.href} {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div class="site-footer__col">
+                <h2>Follow &amp; Reviews</h2>
+                <ul>
+                    {social.map((item) => <li><a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a></li>)}
+                </ul>
+            </div>
         </div>
 
-        <nav class="site-footer__col" aria-labelledby="footer-explore">
-            <h2 id="footer-explore">Explore</h2>
-            <ul>
-                {navigation.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-            </ul>
-        </nav>
-
-        <div class="site-footer__col">
-            <h2>Contact</h2>
-            <ul>
-                {
-                    contact.map((item) => (
-                        <li>
-                            <a href={item.href} {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                                {item.label}
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-
-        <div class="site-footer__col">
-            <h2>Follow &amp; Reviews</h2>
-            <ul>
-                {social.map((item) => <li><a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a></li>)}
-            </ul>
-        </div>
+        <p class="site-footer__legal">© {new Date().getFullYear()} Rio on the Map. Rio de Janeiro, Brazil.</p>
     </div>
-
-    <p class="site-footer__legal">© {new Date().getFullYear()} Rio on the Map. Rio de Janeiro, Brazil.</p>
 </footer>
