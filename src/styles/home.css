@@ -19,8 +19,8 @@
 }
 
 .home-hero__title {
-    max-width: 44rem;
-    font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+    max-width: 58rem;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     line-height: 1.06;
     letter-spacing: -0.025em;
 }
@@ -88,8 +88,10 @@
         min-height: calc(100svh - 4.5rem);
     }
 
+    /* Lifts Sugarloaf above the text and crops the roof out of the narrow frame. */
     .page-hero--tall img {
-        transform: none;
+        transform: scale(1.55);
+        transform-origin: 62% 100%;
     }
 
     .page-hero--tall::after {
